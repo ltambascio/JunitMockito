@@ -43,7 +43,11 @@ public class StringReverseTest
 		assertEquals(expected, actual);
 	}
 	
-	@Test(expected=NullPointerException.class)
+	/**
+	 * The reverse method should throw an IllegalArgumentException if a null
+	 * string is passed in.
+	 */
+	@Test(expected=IllegalArgumentException.class)
 	public void testNullParameter()
 	{
 		StringReverse.reverse(null);
