@@ -15,22 +15,38 @@ import org.junit.runner.RunWith;
 public class StringReverseTest
 {
 	
+	/**
+	 * Creates Object array containing parameters to be passed to test method.
+	 * @return	Array of parameters (Object)
+	 */
 	private Object[] testValues()
 	{
 		return new Object[] {
 				new Object[] {"dcba", StringReverse.reverse("abcd")},
-				new Object[] {"lmnop", StringReverse.reverse("ponml")}
+				new Object[] {"lmnop", StringReverse.reverse("ponml")},
+				new Object[] {"", StringReverse.reverse("")},
+				new Object[] {"1", StringReverse.reverse("1")},
+				new Object[] {"aaaaaa", StringReverse.reverse("aaaaaa")}
 		};
 	}
 
 	/**
+	 * Generic, parameterized version of test method.
 	 * 
+	 * @param	expected	The expected string returned by reverse.
+	 * @param	actual		The actual value returned by reverse.
 	 */
 	@Test
 	@Parameters(method = "testValues")
-	public void testSimpleExpectedReverse(String expected, String actual)
+	public void testParametericReverse(String expected, String actual)
 	{
 		assertEquals(expected, actual);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testNullParameter()
+	{
+		StringReverse.reverse(null);
 	}
 
 }
