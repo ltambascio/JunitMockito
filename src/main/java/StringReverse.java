@@ -9,8 +9,19 @@ import java.util.List;
  */
 public class StringReverse
 {
+	/**
+	 * Listing 3.16 - String reverse static method
+	 * @param	s	String to reverse
+	 * @return	String with the characters in reverse order
+	 * @throws	IllegalArgumentException Thrown if parameter is null.
+	 */
 	public static String reverse(String s)
 	{
+		if (s == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
 		List<String> tempArray = new ArrayList<String>(s.length());
 		for (int i=0; i < s.length(); i++) {
 			tempArray.add(s.substring(i, i+1));
