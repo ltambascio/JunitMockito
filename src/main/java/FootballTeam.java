@@ -1,13 +1,15 @@
 
 public class FootballTeam
 {
-	public FootballTeam (int gameswon)
+	private int gamesWon;
+	
+	public FootballTeam (int gamesWon)
 	{
-		
+		this.gamesWon = gamesWon;
 	}
 	
 	public int getGamesWon()
 	{
-		return 0;
+		return gamesWon;
 	}
 }
