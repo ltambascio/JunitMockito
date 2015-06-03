@@ -99,7 +99,7 @@ public class FootballTeamTest
 		FootballTeam team_2 = new FootballTeam(2);
 		FootballTeam team_3 = new FootballTeam(3);
 		
-		assertTrue(team_2.compareTo(team_3) > 0);
+		assertTrue(team_2.compareTo(team_3) < 0);
 	}
 
 }
