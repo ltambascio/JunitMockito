@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -51,11 +52,41 @@ public class FootballTeamTest
 		return new Object[] {-10, -1};
 	}
 
+	/**
+	 * Verify that illegal (negative) values cause an {@code IllegalArgumentException}.
+	 * 
+	 * @param illegalNbOfGames	Invalid values for the constructor.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(method = "illegalNbOfGamesWon")
 	public void constructorShouldThrowExceptionForIllegalGamesNb(int illegalNbOfGames)
 	{
 		new FootballTeam(illegalNbOfGames);
+	}
+	
+	/**
+	 * Test to verify that {@code FootballTeam} implements {@code Comparable}.
+	 */
+	@Test
+	public void shouldBePossibleToCompareTeams()
+	{
+		FootballTeam team  = new FootballTeam(123);
+		
+		assertTrue("FootbalTeam should implement Comparable",
+				team instanceof Comparable);
+	}
+	
+	/**
+	 * Verify that a team with more wins should compare to as greater than a 
+	 * team with fewer wins.
+	 */
+	@Test
+	public void teamsWithMoreMatchesWonShouldBeGreater()
+	{
+		FootballTeam team_2 = new FootballTeam(2);
+		FootballTeam team_3 = new FootballTeam(3);
+		
+		assertTrue(team_3.compareTo(team_2) > 0);
 	}
 
 }

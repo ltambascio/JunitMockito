@@ -3,7 +3,7 @@
  * 
  * @author Larry Tambascio
  */
-public class FootballTeam
+public class FootballTeam implements Comparable<FootballTeam>
 {
 	/**
 	 * Member for holding the number of games won.
@@ -33,5 +33,12 @@ public class FootballTeam
 	public int getGamesWon()
 	{
 		return gamesWon;
+	}
+
+	@Override
+	public int compareTo(FootballTeam o)
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
