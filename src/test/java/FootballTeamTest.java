@@ -102,4 +102,17 @@ public class FootballTeamTest
 		assertTrue(team_2.compareTo(team_3) < 0);
 	}
 
+	/**
+	 * Verify that a team with the same wins should compare to as 0 against
+	 * another team with the same wins.
+	 */
+	@Test
+	public void teamsWithSameMatchesWonShouldBeEqual()
+	{
+		FootballTeam team_A = new FootballTeam(2);
+		FootballTeam team_B = new FootballTeam(2);
+		
+		assertTrue(team_A.compareTo(team_B) == 0);
+	}
+
 }
