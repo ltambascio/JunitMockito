@@ -35,10 +35,16 @@ public class FootballTeam implements Comparable<FootballTeam>
 		return gamesWon;
 	}
 
+	/**
+	 * Comparison method
+	 */
 	@Override
-	public int compareTo(FootballTeam o)
+	public int compareTo(FootballTeam otherTeam)
 	{
-		// TODO Auto-generated method stub
+		if (gamesWon > otherTeam.gamesWon)
+		{
+			return 1;
+		}
 		return 0;
 	}
 }
