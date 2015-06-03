@@ -89,4 +89,17 @@ public class FootballTeamTest
 		assertTrue(team_3.compareTo(team_2) > 0);
 	}
 
+	/**
+	 * Verify that a team with fewer wins should compare to as lesser than a 
+	 * team with more wins.
+	 */
+	@Test
+	public void teamsWithFewerMatchesWonShouldBeLesser()
+	{
+		FootballTeam team_2 = new FootballTeam(2);
+		FootballTeam team_3 = new FootballTeam(3);
+		
+		assertTrue(team_2.compareTo(team_3) > 0);
+	}
+
 }
