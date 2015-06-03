@@ -17,12 +17,18 @@ public class FootballTeam
 	 */
 	public FootballTeam (int gamesWon)
 	{
+		if (gamesWon < 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		
 		this.gamesWon = gamesWon;
 	}
 	
 	/**
 	 * Returns the number of games won.
-	 * @return
+	 * 
+	 * @return Games won
 	 */
 	public int getGamesWon()
 	{
