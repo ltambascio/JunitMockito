@@ -10,4 +10,10 @@ public class BookingSystem
 		return new ArrayList<Integer>();
 	}
 
+	public void reserve(int hour)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

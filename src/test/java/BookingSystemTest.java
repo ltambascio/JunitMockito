@@ -8,6 +8,9 @@ public class BookingSystemTest
 {
 	private BookingSystem booking;
 	
+	/**
+	 * Instantiate the booking system for the tests
+	 */
 	@Before
 	public void setUp()
 	{
@@ -22,6 +25,13 @@ public class BookingSystemTest
 	public void validateEmptyBookedHours()
 	{
 		assertEquals(0, booking.listBookedHours().size());
+	}
+	
+	@Test
+	public void validateOneBookedBlock()
+	{
+		booking.reserve(1);
+		assertEquals(1, booking.listBookedHours().size());
 	}
 
 }
