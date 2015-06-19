@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +34,17 @@ public class BookingSystemTest
 	{
 		booking.reserve(1);
 		assertEquals(1, booking.listBookedHours().size());
+	}
+	
+	/**
+	 * Test to validate that a second booking on an hour already reserved fails
+	 * or returns false.
+	 */
+	@Test
+	public void ensureSecondBookingOnHourFails()
+	{
+		assertTrue(booking.reserve(1));
+		assertFalse(booking.reserve(1));
 	}
 
 }
