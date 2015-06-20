@@ -1,11 +1,14 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-
+@RunWith(JUnitParamsRunner.class)
 public class BookingSystemTest
 {
 	private BookingSystem booking;
@@ -45,6 +48,18 @@ public class BookingSystemTest
 	{
 		assertTrue(booking.reserve(1));
 		assertFalse(booking.reserve(1));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	@Parameters(method="fetchIllegalHours")
+	public void onlyValidHoursAllowed(int hour)
+	{
+		booking.reserve(hour);
+	}
+	
+	private Object[] fetchIllegalHours()
+	{
+		return new Object[] {-1, -12, -36, 24, 255};
 	}
 
 }

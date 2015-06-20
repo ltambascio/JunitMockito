@@ -38,6 +38,11 @@ public class BookingSystem
 
 	public boolean reserve(int hour)
 	{
+		if (hour < 0 || hour > 23)
+		{
+			throw new IllegalArgumentException();
+		}
+		
 		if (reservations.get(hour))
 		{
 			return false;
