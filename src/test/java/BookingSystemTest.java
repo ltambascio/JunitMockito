@@ -1,6 +1,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -32,6 +35,9 @@ public class BookingSystemTest
 		assertEquals(0, booking.listBookedHours().size());
 	}
 	
+	/**
+	 * Validate that one simple reservation works.
+	 */
 	@Test
 	public void validateOneBookedBlock()
 	{
@@ -50,6 +56,11 @@ public class BookingSystemTest
 		assertFalse(booking.reserve(1));
 	}
 	
+	/**
+	 * Verify that illegal hour values throw exceptions.
+	 * 
+	 * @param hour	Illegal hour value to attempt to reserve
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters(method="fetchIllegalHours")
 	public void onlyValidHoursAllowed(int hour)
@@ -57,9 +68,34 @@ public class BookingSystemTest
 		booking.reserve(hour);
 	}
 	
+	/**
+	 * Method for parameterization to test illegal hour values.
+	 * 
+	 * @return	Array of illegal values
+	 */
 	private Object[] fetchIllegalHours()
 	{
 		return new Object[] {-1, -12, -36, 24, 255};
+	}
+	
+	/**
+	 * Tests multiple reservations and ensures everything is as expected with 
+	 * the {@code listBookedHours} method.
+	 */
+	@Test
+	public void multipleReservations()
+	{
+		assertTrue(booking.reserve(2));
+		assertTrue(booking.reserve(4));
+		assertTrue(booking.reserve(18));
+		
+		List<Integer> reservations = booking.listBookedHours();
+		
+		assertEquals(3, reservations.size());
+		
+		assertEquals(2, reservations.get(0).intValue());
+		assertEquals(4, reservations.get(1).intValue());
+		assertEquals(18, reservations.get(2).intValue());
 	}
 
 }
