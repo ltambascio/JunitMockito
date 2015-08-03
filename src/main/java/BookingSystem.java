@@ -36,9 +36,22 @@ public class BookingSystem
 		return booked;
 	}
 
-	public void reserve(int hour)
+	public boolean reserve(int hour)
 	{
-		reservations.add(hour, Boolean.TRUE);
+		if (hour < 0 || hour > 23)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		if (reservations.get(hour))
+		{
+			return false;
+		}
+		else
+		{
+			reservations.add(hour, Boolean.TRUE);
+			return true;
+		}
 		
 	}
 
