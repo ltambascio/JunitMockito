@@ -1,0 +1,3 @@
+# Travis configuration file for JunitMockito
+
+language: java
