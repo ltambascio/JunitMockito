@@ -1,3 +1,5 @@
+package messenger;
+
 /**
  * Listing 5.12 - Messenger class to be tested with test doubles.
  * 
