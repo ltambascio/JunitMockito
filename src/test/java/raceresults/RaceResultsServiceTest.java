@@ -1,6 +1,7 @@
 package raceresults;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 
@@ -16,7 +17,13 @@ public class RaceResultsServiceTest
 	public void subscribedClientShouldReceiveMessages()
 	{
 		RaceResultsService raceResults = new RaceResultsService();
-		fail("Incomplete test");
+		Client client = mock(Client.class);
+		Message message = mock(Message.class);
+		
+		raceResults.addSubscriber(client);
+		raceResults.send(message);
+		
+		verify(client).receive(message);
 	}
 
 }
