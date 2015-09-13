@@ -2,6 +2,7 @@ package raceresults;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
 
 import org.junit.Test;
 
@@ -36,5 +37,12 @@ public class RaceResultsServiceTest
 		
 		verify(clientA).receive(message);
 		verify(clientB).receive(message);
+	}
+	
+	@Test
+	public void notSubscribedClientShouldNotReceiveMessage()
+	{
+		verify(clientA, never()).receive(message);
+		verify(clientB, never()).receive(message);
 	}
 }
