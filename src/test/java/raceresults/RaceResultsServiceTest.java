@@ -18,7 +18,22 @@ public class RaceResultsServiceTest
 	Client clientA = mock(Client.class, "clientA");
 	Client clientB = mock(Client.class, "clientB");
 	Message message = mock(Message.class);
-	
+
+	// zero subscribers
+	/**
+	 * Test that clients who are not subscribed shouldn't receive a message.
+	 */
+	@Test
+	public void notSubscribedClientShouldNotReceiveMessage()
+	{
+		verify(clientA, never()).receive(message);
+		verify(clientB, never()).receive(message);
+	}
+
+	// One client
+	/**
+	 * Simple receive message for one client
+	 */
 	@Test
 	public void subscribedClientShouldReceiveMessages()
 	{
@@ -28,6 +43,10 @@ public class RaceResultsServiceTest
 		verify(clientA).receive(message);
 	}
 
+	// two subscribers
+	/**
+	 * Verify that multiple clients each receive a message
+	 */
 	@Test
 	public void messageShouldBeSentToAllSubscribers()
 	{
@@ -37,12 +56,5 @@ public class RaceResultsServiceTest
 		
 		verify(clientA).receive(message);
 		verify(clientB).receive(message);
-	}
-	
-	@Test
-	public void notSubscribedClientShouldNotReceiveMessage()
-	{
-		verify(clientA, never()).receive(message);
-		verify(clientB, never()).receive(message);
 	}
 }
