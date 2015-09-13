@@ -13,27 +13,23 @@ import org.junit.Test;
 public class RaceResultsServiceTest
 {
 
+	RaceResultsService raceResults = new RaceResultsService();
+	Client clientA = mock(Client.class, "clientA");
+	Client clientB = mock(Client.class, "clientB");
+	Message message = mock(Message.class);
+	
 	@Test
 	public void subscribedClientShouldReceiveMessages()
 	{
-		RaceResultsService raceResults = new RaceResultsService();
-		Client client = mock(Client.class);
-		Message message = mock(Message.class);
-		
-		raceResults.addSubscriber(client);
+		raceResults.addSubscriber(clientA);
 		raceResults.send(message);
 		
-		verify(client).receive(message);
+		verify(clientA).receive(message);
 	}
 
 	@Test
 	public void messageShouldBeSentToAllSubscribers()
 	{
-		RaceResultsService raceResults = new RaceResultsService();
-		Client clientA = mock(Client.class, "clientA");
-		Client clientB = mock(Client.class, "clientB");
-		Message message = mock(Message.class);
-		
 		raceResults.addSubscriber(clientA);
 		raceResults.addSubscriber(clientB);
 		raceResults.send(message);
