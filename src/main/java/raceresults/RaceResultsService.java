@@ -20,8 +20,7 @@ public class RaceResultsService
 
 	public void removeSubscriber(Client client)
 	{
-		// TODO Auto-generated method stub
-		
+		clients.remove(client);
 	}
 
 }
