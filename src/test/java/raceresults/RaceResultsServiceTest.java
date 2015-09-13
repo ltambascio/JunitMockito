@@ -57,6 +57,19 @@ public class RaceResultsServiceTest
 		verify(clientA).receive(message);
 	}
 
+	/**
+	 * Verify that a client that has unsubscribed won't get any messages.
+	 */
+	@Test
+	public void unsubscribedClientShouldNotReceiveMessages()
+	{
+		raceResults.addSubscriber(clientA);
+		raceResults.removeSubscriber(clientA);
+		raceResults.send(message);
+		
+		verify(clientA, never()).receive(message);
+	}
+
 	// two subscribers
 	/**
 	 * Verify that multiple clients each receive a message
