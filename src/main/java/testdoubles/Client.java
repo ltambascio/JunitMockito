@@ -1,6 +1,3 @@
-/**
- * 
- */
 package testdoubles;
 
 import java.util.ArrayList;
