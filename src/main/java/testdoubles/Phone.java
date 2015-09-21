@@ -1,7 +1,8 @@
 package testdoubles;
 
 /**
- * Listing 5.37 - Phone class
+ * Listing 5.41 - Phone class with enahnced constructor
+ * 
  * @author Larry Tambascio
  */
 public class Phone
@@ -9,10 +10,10 @@ public class Phone
 	private final boolean mobile;
 	private final String number;
 	
-	public Phone(String number, boolean mobile)
+	public Phone(String number)
 	{
 		this.number = number;
-		this.mobile = mobile;
+		this.mobile = number.startsWith("+") && number.endsWith("9");
 	}
 	
 	public boolean isMobile()
