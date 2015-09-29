@@ -3,6 +3,7 @@ package raceresults;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 
 import org.junit.Test;
 
@@ -84,4 +85,56 @@ public class RaceResultsServiceTest
 		verify(clientA).receive(message);
 		verify(clientB).receive(message);
 	}
+	
+	// Adding the concept of race categories
+	/**
+	 * Verify a simple category scenario
+	 */
+	@Test
+	public void categorySubscriber()
+	{
+		raceResults.addSubscriber(clientA, "categoryA");
+		
+		raceResults.send(message, "categoryA");
+		
+		verify(clientA).receive(message);
+		verify(clientB, never()).receive(message);
+	}
+	
+	/**
+	 * Verify that different categories go to their respective clients.
+	 */
+	@Test
+	public void multipleCategories()
+	{
+		raceResults.addSubscriber(clientA, "categoryA");
+		raceResults.addSubscriber(clientB, "categoryB");
+		
+		raceResults.send(message, "categoryA");
+		raceResults.send(message, "categoryB");
+		
+		verify(clientA, times(1)).receive(message);
+		verify(clientB, times(1)).receive(message);
+	}
+
+	/**
+	 * Verify that different categories go to their respective clients, and that
+	 * a category will go to multiple clients.
+	 */
+	@Test
+	public void multipleCategoriesMultipleTimes()
+	{
+		raceResults.addSubscriber(clientA, "categoryA");
+		raceResults.addSubscriber(clientB, "categoryA");
+		raceResults.addSubscriber(clientB, "categoryB");
+		raceResults.addSubscriber(clientB);
+		
+		raceResults.send(message, "categoryA");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message);
+		
+		verify(clientA, times(1)).receive(message);
+		verify(clientB, times(3)).receive(message);
+	}
+
 }
