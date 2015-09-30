@@ -1,6 +1,7 @@
 package raceresults;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,14 +9,16 @@ import java.util.Map;
 public class RaceResultsService
 {
 	public static final String DEFAULT_CATEGORY = "Default";
+	private Logger log;
 	private Map<String,Collection<Client>> clientCat = new HashMap<String,Collection<Client>>();
 	//private Collection<Client> clients = new HashSet<Client>();
 
 	/**
 	 * Constructor to initialize the default category.
 	 */
-	public RaceResultsService()
+	public RaceResultsService(Logger logger)
 	{
+		this.log = logger;
 		clientCat.put(DEFAULT_CATEGORY, new HashSet<Client>());
 	}
 
@@ -53,7 +56,10 @@ public class RaceResultsService
 	public void send(Message message, String category)
 	{
 		for (Client client : clientCat.get(category))
+		{
+			log.debug(new Date(), message);
 			client.receive(message);
+		}
 	}
 
 }

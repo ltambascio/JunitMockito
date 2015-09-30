@@ -4,6 +4,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+
+import java.sql.Date;
 
 import org.junit.Test;
 
@@ -15,10 +19,11 @@ import org.junit.Test;
 public class RaceResultsServiceTest
 {
 
-	RaceResultsService raceResults = new RaceResultsService();
-	Client clientA = mock(Client.class, "clientA");
-	Client clientB = mock(Client.class, "clientB");
-	Message message = mock(Message.class);
+	private Logger logger = mock(Logger.class);
+	private RaceResultsService raceResults = new RaceResultsService(logger);
+	private Client clientA = mock(Client.class, "clientA");
+	private Client clientB = mock(Client.class, "clientB");
+	private Message message = mock(Message.class);
 
 	// zero subscribers
 	/**
@@ -135,6 +140,32 @@ public class RaceResultsServiceTest
 		
 		verify(clientA, times(1)).receive(message);
 		verify(clientB, times(3)).receive(message);
+	}
+	
+	/**
+	 * Test to validate logger DOC, and it will also validate multiple messsages
+	 * for different categories.
+	 */
+	@Test
+	public void validateLogger()
+	{
+		raceResults.addSubscriber(clientA, "categoryA");
+		raceResults.addSubscriber(clientB, "categoryB");
+		
+		raceResults.send(message, "categoryA");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message, "categoryA");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message, "categoryA");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message, "categoryB");
+		raceResults.send(message, "categoryB");
+		
+		verify(clientA, times(3)).receive(message);
+		verify(clientB, times(6)).receive(message);
+		
+		verify(logger, times(9)).debug(any(Date.class), eq(message));
 	}
 
 }
