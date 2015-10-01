@@ -167,5 +167,19 @@ public class RaceResultsServiceTest
 		
 		verify(logger, times(9)).debug(any(Date.class), eq(message));
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void removeUnknownClient()
+	{
+		raceResults.removeSubscriber(clientA);
+	}
+
+	@Test(expected=RuntimeException.class)
+	public void removeClientFromUnkownCategory()
+	{
+		raceResults.addSubscriber(clientA, "categoryA");
+		
+		raceResults.removeSubscriber(clientA, "categoryB");
+	}
 
 }

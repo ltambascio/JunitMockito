@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * Exercise 5.7.2 - Enhanced version.
+ * 
+ * @author Larry Tambascio
+ */
 public class RaceResultsService
 {
 	public static final String DEFAULT_CATEGORY = "Default";
@@ -34,7 +39,7 @@ public class RaceResultsService
 
 	public void removeSubscriber(Client client)
 	{
-		clientCat.get(DEFAULT_CATEGORY).remove(client);
+		removeSubscriber(client, DEFAULT_CATEGORY);
 	}
 
 	public void addSubscriber(Client client, String category)
@@ -51,6 +56,28 @@ public class RaceResultsService
 			clientCat.put(category, clients);
 		}
 		clients.add(client);
+	}
+	
+	public void removeSubscriber(Client client, String category)
+	{
+		Collection<Client> clients;
+		
+		if (clientCat.containsKey(category))
+		{
+			clients = clientCat.get(category);
+			if (clients.contains(client))
+			{
+				clients.remove(client);
+			}
+			else
+			{
+				throw new RuntimeException("No client found for given category");
+			}
+		}
+		else
+		{
+			throw new RuntimeException("Category not found: " + category);
+		}
 	}
 	
 	public void send(Message message, String category)
